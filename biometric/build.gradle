@@ -1,0 +1,66 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0.1"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation("androidx.annotation:annotation:1.1.0")
+    implementation("androidx.appcompat:appcompat:1.1.0")
+    implementation("androidx.core:core:1.1.0")
+    implementation("androidx.fragment:fragment:1.1.0")
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
+//    api(project(":lifecycle:lifecycle-viewmodel"))
+
+//    testImplementation(ANDROIDX_TEST_CORE)
+//    testImplementation(ANDROIDX_TEST_RUNNER)
+//    testImplementation(JUNIT)
+//    testImplementation(MOCKITO_CORE)
+//    testImplementation(ROBOLECTRIC)
+//    testImplementation(TRUTH)
+//
+//    androidTestImplementation(ANDROIDX_TEST_CORE)
+//    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+//    androidTestImplementation(ANDROIDX_TEST_RULES)
+//    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+//    androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy)
+//    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy)
+//    androidTestImplementation(TRUTH)
+}
+
+android {
+    aaptOptions {
+        noCompress 'ttf'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+//androidx {
+//    name = "Biometric"
+//    publish = Publish.SNAPSHOT_AND_RELEASE
+//    mavenGroup = LibraryGroups.BIOMETRIC
+//    inceptionYear = "2018"
+//    description = "The Biometric library is a static library that you can add to your Android application. It invokes BiometricPrompt on devices running P and greater, and on older devices will show a compat dialog. Compatible on devices running API 14 or later."
+//}
