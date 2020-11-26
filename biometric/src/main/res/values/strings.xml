@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright (C) 2017 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,9 +21,6 @@
     <string name="fingerprint_dialog_touch_sensor">Touch the fingerprint sensor</string>
     <!-- Message shown by the fingerprint dialog when fingerprint is not recognized. [CHAR LIMIT=20] -->
     <string name="fingerprint_not_recognized">Not recognized</string>
-    <!-- Content description for the error/help message are when the system-provided fingerprint
-         dialog is showing, for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
-    <string name="accessibility_fingerprint_dialog_help_area">Help message area</string>
     <!-- Error message shown when the fingerprint hardware can't be accessed. [CHAR LIMIT=NONE] -->
     <string name="fingerprint_error_hw_not_available">Fingerprint hardware not available.</string>
     <!-- Generic error message shown when the user has no enrolled fingerprints. [CHAR LIMIT=NONE] -->
@@ -41,4 +39,10 @@
     <!-- Button label shown on a biometric authentication system dialog that lets the user
     authenticate using their lock screen credential (such as PIN or password). [CHAR LIMIT=30] -->
     <string name="confirm_device_credential_password">Use password</string>
+    <!-- Error message for when the user has not set up a secure PIN, pattern, or password on this
+    device. Generally not shown to the user. [CHAR LIMIT=NONE] -->
+    <string name="generic_error_no_device_credential">No PIN, pattern, or password set.</string>
+    <!-- Error message for when the app requests PIN, pattern, or password authentication on a
+    device without Keyguard. Generally not shown to the user. [CHAR LIMIT=NONE] -->
+    <string name="generic_error_no_keyguard">This device does not support PIN, pattern, or password.</string>
 </resources>
