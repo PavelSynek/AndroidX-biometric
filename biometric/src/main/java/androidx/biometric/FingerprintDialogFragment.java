@@ -172,14 +172,26 @@ public class FingerprintDialogFragment extends DialogFragment {
     @NonNull
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle(mViewModel.getTitle());
 
         // We have to use builder.getContext() instead of the usual getContext() in order to get
         // the appropriately themed context for this dialog.
         final View layout = LayoutInflater.from(builder.getContext())
                 .inflate(R.layout.fingerprint_dialog_layout, null);
 
+        final TextView titleView = layout.findViewById(R.id.fingerprint_title);
         final TextView subtitleView = layout.findViewById(R.id.fingerprint_subtitle);
+        final TextView descriptionView = layout.findViewById(R.id.fingerprint_description);
+
+        if (titleView != null) {
+            final CharSequence title = mViewModel.getTitle();
+            if (TextUtils.isEmpty(title)) {
+                titleView.setVisibility(View.GONE);
+            } else {
+                titleView.setVisibility(View.VISIBLE);
+                titleView.setText(title);
+            }
+        }
+
         if (subtitleView != null) {
             final CharSequence subtitle = mViewModel.getSubtitle();
             if (TextUtils.isEmpty(subtitle)) {
@@ -190,7 +202,6 @@ public class FingerprintDialogFragment extends DialogFragment {
             }
         }
 
-        final TextView descriptionView = layout.findViewById(R.id.fingerprint_description);
         if (descriptionView != null) {
             final CharSequence description = mViewModel.getDescription();
             if (TextUtils.isEmpty(description)) {
@@ -218,6 +229,9 @@ public class FingerprintDialogFragment extends DialogFragment {
         builder.setView(layout);
         Dialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.bg_rounded_white_8dp));
+        }
         return dialog;
     }
 
