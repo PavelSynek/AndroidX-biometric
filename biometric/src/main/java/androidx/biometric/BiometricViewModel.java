@@ -286,6 +286,13 @@ public class BiometricViewModel extends ViewModel {
         mClientCallback = clientCallback;
     }
 
+    /**
+     * Clears the client callback reference held by this view model.
+     */
+    void resetClientCallback() {
+        mClientCallback = null;
+    }
+
     void setPromptInfo(@Nullable BiometricPrompt.PromptInfo promptInfo) {
         mPromptInfo = promptInfo;
     }
