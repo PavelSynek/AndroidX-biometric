@@ -43,9 +43,7 @@ import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -142,11 +140,15 @@ public class FingerprintDialogFragment extends DialogFragment {
     @Nullable
     TextView mHelpMessageView;
 
+    // Prevent direct instantiation.
+    private FingerprintDialogFragment() {}
+
     /**
      * Creates a new instance of {@link FingerprintDialogFragment}.
      *
      * @return A {@link FingerprintDialogFragment}.
      */
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     @NonNull
     static FingerprintDialogFragment newInstance() {
         return new FingerprintDialogFragment();
@@ -261,12 +263,12 @@ public class FingerprintDialogFragment extends DialogFragment {
      * fragment.
      */
     private void connectViewModel() {
-        final FragmentActivity activity = getActivity();
-        if (activity == null) {
+        final Context host = BiometricPrompt.getHostActivityOrContext(this);
+        if (host == null) {
             return;
         }
 
-        mViewModel = new ViewModelProvider(activity).get(BiometricViewModel.class);
+        mViewModel = BiometricPrompt.getViewModel(host);
 
         mViewModel.getFingerprintDialogState().observe(this, new Observer<Integer>() {
             @Override
@@ -370,8 +372,8 @@ public class FingerprintDialogFragment extends DialogFragment {
      */
     private int getThemedColorFor(int attr) {
         final Context context = getContext();
-        final FragmentActivity activity = getActivity();
-        if (context == null || activity == null) {
+        final Context host = BiometricPrompt.getHostActivityOrContext(this);
+        if (context == null || host == null) {
             Log.w(TAG, "Unable to get themed color. Context or activity is null.");
             return 0;
         }
@@ -379,7 +381,7 @@ public class FingerprintDialogFragment extends DialogFragment {
         TypedValue tv = new TypedValue();
         Resources.Theme theme = context.getTheme();
         theme.resolveAttribute(attr, tv, true /* resolveRefs */);
-        TypedArray arr = activity.obtainStyledAttributes(tv.data, new int[] {attr});
+        TypedArray arr = host.obtainStyledAttributes(tv.data, new int[] {attr});
 
         final int color = arr.getColor(0 /* index */, 0 /* defValue */);
         arr.recycle();
@@ -451,7 +453,7 @@ public class FingerprintDialogFragment extends DialogFragment {
          * Gets the resource ID of the {@code colorError} style attribute.
          */
         static int getColorErrorAttr() {
-            return R.attr.colorError;
+            return androidx.appcompat.R.attr.colorError;
         }
     }
 
