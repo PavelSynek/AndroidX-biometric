@@ -141,7 +141,7 @@ public class FingerprintDialogFragment extends DialogFragment {
     TextView mHelpMessageView;
 
     // Prevent direct instantiation.
-    private FingerprintDialogFragment() {}
+    public FingerprintDialogFragment() {}
 
     /**
      * Creates a new instance of {@link FingerprintDialogFragment}.
